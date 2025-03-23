@@ -41,10 +41,13 @@ Let’s add a material object to our mesh that will determine its color / textur
 
 Select our ground mesh, and then click on the dropdown in `Details > Material` that currently reads `Basic Static Mesh`. Scroll through all the different options you find there and try one or two out. When you’re done exploring, do a search for "Hex" and then choose `M_Tech_Hex_Tile_Pulse` (or really whatever other material looks interesting). Once the material is applied things should look a little more fancy.
 
+The light will get blown out by existing SkyAtmosphere; delete this actor in the Outliner window. You can also adjust the DirectionalLight Forward Shading Priority field in the Details window.
+
 ### Editing a material with Blueprints
 OK, let’s add a new mesh to the scene, and then edit its material to change its color.
 
-1. Add a `Place Actor > Shapes > Sphere` mesh to your scene.
+1. Add a `Place Actor > Shapes > Sphere` mesh to your scene above the ground.
+2. Use the "End" key to snap it to the ground.
 3. Set the sphere’s Transform > Location to be 0,0,75 (the z-axis is correlated with "height" in Unreal, sigh...)
 
 You’ll note that the sphere doesn’t currently have much color, due to its default material and the current lights in the scene (it might be reflecting some color from the plane material). Let’s create and edit a new material for the sphere.
@@ -65,7 +68,10 @@ OK, that’s a basic introduction to playing around in Blueprints.
 ### Adding a plugin
 Let’s create a beautiful sunrise for our scene, because all our scenes should have beautiful sunrises. This will also give us a chance to see how plugins work. Before we get install the plugin, we need to save the project and our current level as the editor will have to restart once the plugin has loaded. Press the `Save Current` button in the main toolbar (disk icon in upper left corner), and give your level a name if you haven't already. Then choose `File > Save All` just to make sure all our project details are saved. 
 
-Here’s a link to the tutorial on [Geographically Accurate Sun Positioning | Unreal Engine Documentation](https://docs.unrealengine.com/en-US/Engine/Rendering/LightingAndShadows/SunPositioner/index.html). Complete the first three steps, the last of which will require you to restart the Unreal editor. Instead of continuing, follow the steps below (although feel free to come back to this tutorial and experiment later).
+Here’s a link to the tutorial on [Geographically Accurate Sun Positioning | Unreal Engine Documentation](https://docs.unrealengine.com/en-US/Engine/Rendering/LightingAndShadows/SunPositioner/index.html). 
+![image](https://github.com/user-attachments/assets/9a423900-532c-433f-ae8d-95897931729c)
+
+Complete the first three steps, the last of which will require you to restart the Unreal editor. Instead of continuing, follow the steps below (although feel free to come back to this tutorial and experiment later).
 
 In your Editor Modes panel, drag `Lights > Sun and Sky` into your level. This will blow out your scene with white light, but if you select the SunSky in your World Outliner you’ll be able to to change the current time of day under `Details > Time > Solar Time`. Set the value to be 6 (for 6AM). Now you should have a nice sunrise.
 
@@ -78,6 +84,8 @@ Let’s add an obstacle. Drag out a `Basic > Cube` mesh from our placement menu.
 
 ### Writing some code
 Let’s quickly add a hit test for when our cube is struck that will log a message to our output window.
+
+C++ version:
 1. Select the cube in the editor
 2. In Details, select `+ Add Component`
 3. Choose the `Actor Component`, and name the new component "ActorCollideComponent"
@@ -137,6 +145,19 @@ void UActorCollideComponent::OnActorHit(UPrimitiveComponent* HitComponent, AActo
 
 11. Hit Play
 12. Celebrate???
+
+Blueprints version:
+1. Select the cube in the editor
+2. In Details, select `+ Add Component`
+3. Choose the `Actor Component`, and name the new component "ActorCollideComponent"
+4. Right-click the new component and select `New C++ Blueprint`
+5. Add the following code:
+![image](https://github.com/user-attachments/assets/91211329-330d-4f59-b04d-d269e21d2378)
+![image](https://github.com/user-attachments/assets/b0a93db3-a0b8-445c-8e4e-b5f78986177f)
+6. Compile the blueprint using the button in the top left
+7. Back in UE5, make sure both the rolling sphere and your cube are generating hit messages. You can find this in `Details > Collisions > Simulation Generates Hit Events`.
+8. Hit Play
+9. Celebrate???
 
 ### Your light speed tour of UE5 comes to an end
 OK, that was actually quite a lot. We created some lights, added some meshes, loaded a plugin, turned on physics, edited a material in Blueprints, generated a C++ component, and got a basic hit test to work. There’s a chance we didn’t get all the way through this on the first day of class… if so we’ll finish up next time.
