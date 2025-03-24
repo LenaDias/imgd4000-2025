@@ -27,7 +27,7 @@ By using the UPROPERTY macro decorator we’ll be able to define this value from
 the UE5 editor; it also ensures the mesh will be added to UE5's memory management.
 You can [heavily customize how each UPROPERTY can be edited](https://romeroblueprints.blogspot.com/2020/10/the-uproperty-macro.html).
 
-3. Add two protected methods to the header:
+3. Add two protected methods to the header _above_ the SpherePawn.generated.h include :
 ```c++
 void MoveForward( float Amount );
 void MoveRight( float Amount );
@@ -37,7 +37,7 @@ void MoveRight( float Amount );
 5. In the Input settings menu, click the + button next to “Axis Mappings”, which are for continuous controls. Name the new control “MoveForward”. Assign the W key to this with a Scale value of 1. Create a new mapping and assign the S key to this with a value of -1. In our code this will ensure that S moves in the opposite direction of W.
 6. Do the same thing for the A/D keys but to a new control named “MoveRight”.
 7. While we’re here, let’s go ahead and create an action for the `Fire` method we’ll add to our Pawn in the next section. Create a new “Action Mapping” (these are for discrete events like buttons presses) and name it “Fire”. Map the spacebar to this action.
-8. Let’s add a new component that will help us control the movement of our Pawn. There’s a variety of components for this, but we’ll use the `FloatingPawnMovement` component. Add the include to our Pawn’s header file:
+8. Let’s add a new component that will help us control the movement of our Pawn. There’s a variety of components for this, but we’ll use the `FloatingPawnMovement` component. Add the include to our Pawn’s header file, once more _above_ the SpherePawn include:
 ```c++
 #include "GameFramework/FloatingPawnMovement.h"
 ```
@@ -79,7 +79,9 @@ void ASpherePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 11. OK, drag a copy of our `SpherePawn` into our level. Assign it a mesh in its details view. 
 12. We need to tell UE5 that we want our `SpherePawn` instance to “possess” the main camera. 
 You can do this by selecting the SpherePawn in the level, and then selecting “Player 0” from the Details > Pawn > Auto Possess Player.
-14. Compile & Play. You should be able to navigate the world using WASD… although you can’t actually see the mesh you assigned to the player at this point.
+14. Compile in Unreal Editor using the button in the bottom right & Play. You should be able to navigate the world using WASD… although you can’t actually see the mesh you assigned to the player at this point.
+![{F135832A-ECC4-48FF-9125-D671E5DCE18C}](https://github.com/user-attachments/assets/45c7c1e0-00fc-4101-8c31-3f3e6249ae94)
+
 
 ### Creating our camera
 We need to create a camera that will follow our player at a certain offset. 
@@ -88,7 +90,7 @@ We need to create a camera that will follow our player at a certain offset.
 UPROPERTY(EditAnywhere)
 class UCameraComponent * Camera;
 ```
-2. We _forward-declared_ our `UCameraComponent` in our header, which means we need to include it in our `.cpp` file: `#include "Camera/CameraComponent.h"`
+2. We _forward-declared_ our `UCameraComponent` in our header, which means we need to include it in our `.cpp` file _below_ its SpherePawn include: `#include "Camera/CameraComponent.h"`
 3. Add our camera instantiation / setup the the `SpherePawn` constructor:
 ```c++
 ASpherePawn::ASpherePawn(){
@@ -180,3 +182,16 @@ void ASpherePawn::Fire() {
 ```
 5. In your SpherePawn implementation file, make sure to include "ProjectileActor.h" so that the class can call its methods.
 6. Compile and Play. You should be able to fire via the spacebar now.  You can also adjust the speed of the projectiles using the `SpherePawn` details view in UE5.
+
+
+### Useful troubleshooting resources
+
+Here is what a successful VS compile (Build > Compile) looks like. You may need to use this if Unreal Editor will not open due to uncompiled C++ code and asks you to build in your IDE.
+![2025-03-23T23_27_18](https://github.com/user-attachments/assets/a78fe4a4-acf7-4e43-8d76-447919150373)
+
+Disabling Live Coding sometimes helps with compilation problems. Go to Edit > Editor Preferences > General > Live Coding > untick "Enable Live Coding"
+
+Getting hella errors in the Error List in VS? You can hide these; most of them are false flags caused by Intellisense. Use the Output window instead, set to "Show outout from: Build". That'll show you the relevant errors.
+https://dev.epicgames.com/documentation/en-us/unreal-engine/setting-up-visual-studio-for-unreal-engine?application_version=4.27#turnofftheerrorlistwindow 
+
+Getting weird UClass errors? Make sure your includes are in the right order. https://www.reddit.com/r/unrealengine/comments/6lrryt/uclass_declaration_has_no_storage_class_or_type/ 
