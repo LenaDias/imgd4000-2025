@@ -1,5 +1,7 @@
 # IMGD 4000 Technical Game Development II D24
 
+OLD SYLLABUS DO NOT USE
+
 Classroom: Remote + FL222
 
 (REMOTE) Tuesdays and Fridays 2:00 to 3:50 pm
