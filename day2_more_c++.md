@@ -1,4 +1,4 @@
-## Tech Workshop
+## Tutorial 2: Player movement and input
 Goal: Create a very small world with a floating mesh that represents the player using an Pawn subclass. Configure InputController to use WASD keys for movement. Assign spacebar to “Fire” other instances of a separate “Projectile” class. Use a UPROPERTY value to configure speed of projectiles.
 
 ### Creating the Project / Level
@@ -12,7 +12,7 @@ We’re going to spend another day starting “from scratch” in Unreal. Althou
 
 OK, you should now have a lit scene ready to go… next thing to do is make our "Player".
 
-### Creating Our Pawn subclass (the player) and configuring movement
+### Creating Our Pawn subclass (the player) and configuring movement (DEPRECATED INPUT SYSTEM)
 In Unreal, the `Pawn` class is used to represent the player and any NPCs / AI in the game. 
 We’ll create a subclass of  `Pawn` and setup movement control via the WASD keys. 
 We’ll also configure a camera to “follow” the pawn. 
@@ -81,6 +81,102 @@ void ASpherePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 You can do this by selecting the SpherePawn in the level, and then selecting “Player 0” from the Details > Pawn > Auto Possess Player.
 14. Compile in Unreal Editor using the button in the bottom right & Play. You should be able to navigate the world using WASD… although you can’t actually see the mesh you assigned to the player at this point.
 ![{F135832A-ECC4-48FF-9125-D671E5DCE18C}](https://github.com/user-attachments/assets/45c7c1e0-00fc-4101-8c31-3f3e6249ae94)
+
+### Creating Our Pawn subclass (the player) and configuring movement (ENHANCED INPUT SYSTEM)
+
+
+TestPlayerController.cpp:
+```
+// Fill out your copyright notice in the Description page of Project Settings.
+
+
+#include "TestPlayerController.h"
+#include <EnhancedInputSubsystems.h>
+#include <EnhancedInputComponent.h>
+
+void ATestPlayerController::BeginPlay()
+{
+	Super::BeginPlay();
+
+	checkf(InputMappingContext, TEXT("InputMappingContext is not set in %s"), *GetNameSafe(this));
+	checkf(MoveAction, TEXT("MoveAction is not set in %s"), *GetNameSafe(this));
+
+	//Register the IMC
+	TObjectPtr<UEnhancedInputLocalPlayerSubsystem> EnhancedInputSubsystem = GetLocalPlayer()->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>();
+	if (EnhancedInputSubsystem) {
+		EnhancedInputSubsystem->AddMappingContext(InputMappingContext, 0);
+	}
+
+}
+
+void ATestPlayerController::SetupInputComponent()
+{
+	Super::SetupInputComponent();
+
+	UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent);
+
+	EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ATestPlayerController::Move);
+}
+
+void ATestPlayerController::Move(const FInputActionValue& InputActionValue)
+{
+	const FVector2D InputAxisVector = InputActionValue.Get<FVector2D>();
+
+	//Get controller rotation
+	const FRotator ControllerRotation = GetControlRotation();
+	//Focus on Yaw
+	const FRotator YawRotation(0, ControllerRotation.Yaw, 0);
+	//Get forward vector
+	const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
+	//Get right vector
+	const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
+
+	//Move the character
+	if (APawn* ControlPawn = GetPawn<APawn>())
+	{
+		ControlPawn->AddMovementInput(ForwardDirection, InputAxisVector.Y);
+		ControlPawn->AddMovementInput(RightDirection, InputAxisVector.X);
+	}
+}
+
+
+```
+
+TestPlayerController.h:
+```
+// Fill out your copyright notice in the Description page of Project Settings.
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "GameFramework/PlayerController.h"
+#include "EnhancedInputLibrary.h"
+#include "TestPlayerController.generated.h"
+
+/**
+ * 
+ */
+UCLASS()
+class TUT2_ENHANCEDINPUT_API ATestPlayerController : public APlayerController
+{
+	GENERATED_BODY()
+
+protected:
+	virtual void BeginPlay() override;
+	virtual void SetupInputComponent() override;
+
+private:
+	void Move(const FInputActionValue& InputActionValue);
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Player Input", Meta = (AllowPrivateAccess = "true"))
+	UInputMappingContext* InputMappingContext;
+
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Player Input|Move", Meta = (AllowPrivateAccess = "true")) 
+	TObjectPtr<UInputAction> MoveAction;
+};
+
+```
 
 
 ### Creating our camera
@@ -195,3 +291,5 @@ Getting hella errors in the Error List in VS? You can hide these; most of them a
 https://dev.epicgames.com/documentation/en-us/unreal-engine/setting-up-visual-studio-for-unreal-engine?application_version=4.27#turnofftheerrorlistwindow 
 
 Getting weird UClass errors? Make sure your includes are in the right order. https://www.reddit.com/r/unrealengine/comments/6lrryt/uclass_declaration_has_no_storage_class_or_type/ 
+
+Connecting to Git? Use GitHub Desktop to designate where your game is stored as a Git repository. Then, follow the steps here under "Configure Unreal Engine": https://www.anchorpoint.app/blog/git-with-unreal-engine-5
