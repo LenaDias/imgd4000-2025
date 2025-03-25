@@ -98,23 +98,29 @@ void ATestPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
+	//Checks to make sure actions IMC and MoveAction are there
 	checkf(InputMappingContext, TEXT("InputMappingContext is not set in %s"), *GetNameSafe(this));
 	checkf(MoveAction, TEXT("MoveAction is not set in %s"), *GetNameSafe(this));
 
-	//Register the IMC
+	//Get a pointer to the EnhancedInputSubsystem
 	TObjectPtr<UEnhancedInputLocalPlayerSubsystem> EnhancedInputSubsystem = GetLocalPlayer()->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>();
+	//Add the IMC to the EnhancedInputSubsystem
 	if (EnhancedInputSubsystem) {
 		EnhancedInputSubsystem->AddMappingContext(InputMappingContext, 0);
 	}
 
 }
 
+//Set up player input
 void ATestPlayerController::SetupInputComponent()
 {
+	//Access super class to connect input
 	Super::SetupInputComponent();
 
+	//Get a pointer to the EnhancedInputComponent our PlayerController now has
 	UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent);
 
+	//Bind the MoveAction to the Move method
 	EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ATestPlayerController::Move);
 }
 
@@ -138,6 +144,7 @@ void ATestPlayerController::Move(const FInputActionValue& InputActionValue)
 		ControlPawn->AddMovementInput(RightDirection, InputAxisVector.X);
 	}
 }
+
 
 
 ```
