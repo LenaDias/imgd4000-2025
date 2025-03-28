@@ -201,6 +201,11 @@ ASpherePawn::ASpherePawn()
 	PawnMovement = CreateDefaultSubobject<UFloatingPawnMovement>("PawnMovement");
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>("Mesh");
 
+	static ConstructorHelpers::FObjectFinder<UStaticMesh>SphereMeshAsset(TEXT("StaticMesh'/Engine/BasicShapes/Sphere.Sphere'"));
+	    SphereMesh->SetStaticMesh(SphereMeshAsset.Object);
+	
+	RootComponent = SphereMesh;
+
 }
 ```	
 
