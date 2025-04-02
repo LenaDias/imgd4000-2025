@@ -102,6 +102,12 @@ By using the UPROPERTY macro decorator we’ll be able to define this value from
 
 You can [heavily customize how each UPROPERTY can be edited](https://romeroblueprints.blogspot.com/2020/10/the-uproperty-macro.html).
 
+If you are receiving an MSB3073 code 8 or Visual Studio is screaming at you, you may have the wrong class declaration. If `TEST_API` is present in your header files as part of the class declaration, you might have copy-pasted from my code and it is creating a conflict. This code is auto-generated after you make a new C++ class in Unreal Editor and will differ based on your project name. For example, if your project is named playerMovementInput, your `SpherePawn` class header should look like...
+```c++
+UCLASS()
+class PLAYERMOVEMENTINPUT_API ASpherePawn : public APawn
+```
+
 5. We'll also add a protected mmember component that adds movement to our `SpherePawn`. 
 ```c++
 protected:
@@ -622,6 +628,10 @@ Here is what a successful VS compile (Build > Compile) looks like. You may need 
 
 Disabling Live Coding sometimes helps with compilation problems, especially MSB3073 code 6. Go to Edit > Editor Preferences > General > Live Coding > untick "Enable Live Coding"
 
-Error code 8 on MSB3073? 
+Error MSB3073 code 8? You may have the wrong class declaration. If `TEST_API` is present in your header files as part of the class declaration, you might have copy-pasted from my code and it is creating a conflict. This code is auto-generated after you make a new C++ class in Unreal Editor and will differ based on your project name. For example, if your project is named playerMovementInput, your `SphereController` class header should look like...
+```c++
+UCLASS()
+class PLAYERMOVEMENTINPUT_API ASphereController : public APlayerController...
+```
 
 Getting weird UClass errors? Make sure your includes are in the right order. https://www.reddit.com/r/unrealengine/comments/6lrryt/uclass_declaration_has_no_storage_class_or_type/ 
