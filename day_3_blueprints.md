@@ -83,7 +83,7 @@ EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Triggered, this, &
 void ASphereController::Fire(const FInputActionValue& InputActionValue)
 {
 	GEngine->AddOnScreenDebugMessage(0, 3.0f, FColor::Green, FString(TEXT("SphereController fire")));
-	if (AMyPawn* ControlPawn = GetPawn<AMyPawn>())
+	if (ASpherePawn* ControlPawn = GetPawn<ASpherePawn>())
 	{
 		GEngine->AddOnScreenDebugMessage(0, 3.0f, FColor::Green, FString(ControlPawn->GetName()));
 		ControlPawn->Fire(InputActionValue);
@@ -107,7 +107,7 @@ void Fire(const FInputActionValue& InputActionValue);
 #include "GameFramework/Pawn.h"
 #include <GameFramework/FloatingPawnMovement.h>
 #include "ProjectileActor.h"
-#include "MyPawn.generated.h"
+#include "SpherePawn.generated.h"
 ```
 3. Add initialization for our `ProjectileSpeed` property to the end of our `SpherePawn` constructor:
 ```c++
@@ -179,7 +179,7 @@ We will primarily be implementing the `SpherePawn::FireLaser` method.
 #include <GameFramework/FloatingPawnMovement.h>
 #include "ProjectileActor.h"
 #include "DrawDebugHelpers.h"
-#include "MyPawn.generated.h"
+#include "SpherePawn.generated.h"
 ```
 
 This gives us a variety of different shapes that we can dynamically draw in our world at different locations and with different orientations. In this case we’ll be using lines. 
