@@ -65,11 +65,11 @@ Now, we need to add the `FireAction` input. Remember how last time we set up `En
 ![image](https://github.com/user-attachments/assets/0e5a061b-847e-4c5f-b88b-c140b9c96ef1)
 
 5. Now, back to C++. Open your `SphereController.h` header file.
-6. Add a protected, `UPROPERTY`-decorated member that stores the `FireAction` (we'll feed this our `IA_Fire` `Move Action` later.
+6. Add a protected, `UPROPERTY`-decorated member that stores the `FireAction` (we'll feed this our `IA_Fire` `Move Action` later.)
 7. Also add another private method:
 ```c++
 	void Fire(const FInputActionValue& InputActionValue);
-	```
+```
 
 8. Open your `SphereController.cpp` file.
 9. At the bottom of the constructor, bind the input to your `SphereController`'s `Fire` method as you did with `Move`:
@@ -126,7 +126,9 @@ void ASpherePawn::Fire() {
 }
 ```
 6. Make sure this drop-down is set to `UnrealBuildTool`.
+
 ![image](https://github.com/user-attachments/assets/8b80808a-446c-49fa-a86b-77c1e71f0ec9)
+
 7. Perform a `Build > Clean`, then a `Build > Build`.
 8. Remember your `BP_SphereController` subclass you made last class? Let's open it up again. Notice how it automatically updated to reflect the changes you made, like the new `UPROPERTY` to `SphereController.cpp` and `SphereController.h`, since it is a subclass of those.
 9. Set the `Fire Action` to your new `IA_Fire` `Input Action`.
@@ -342,6 +344,7 @@ For custom particles, check out [this tutorial](https://dev.epicgames.com/commun
 12. Almost there! Connect the “M” output to the “Attach to Component” input of our spawn node.
 13. Set “Location Type” on the spawn node to be “Snap to Target, Including Scale”. These will attach our particles to whatever ends up getting hit.
 Your `BP_SpherePawn` `Event Graph` should look like this:
+
 ![image](https://github.com/user-attachments/assets/8db9752f-f906-49e9-af76-0077beddb262)
 
 
@@ -357,6 +360,7 @@ Your `BP_SpherePawn` `Event Graph` should look like this:
 Let's now setup our blueprint so that after the fire has burned for a few seconds our target is removed from the scene. We'll also set it up so that our fire continues to burn for a second or two afterwards.
 
 1. In order to create delays in our Blueprints we can use the `Delay` node. Back in your `BP_SpherePawn` event graph, Drag a pin from the empty white control node at the top of `Spawn Emitter Attached` and then search for `Delay`. Use `3.0` or whatever else you want for our delay duration.
+
 ![image](https://github.com/user-attachments/assets/98925bc1-e0fe-4601-886d-747a7e60bad3)
 
 2. At the end of these three seconds we want to set out cube visibility to 0. While we could simply destroy the cube actor, our particles have been attached to it and would immediately also disappear if we did this. By changing the visibility of the mesh to 0, other components remain visible.
@@ -364,6 +368,7 @@ Let's now setup our blueprint so that after the fire has burned for a few second
 Drag a pin from the `Completed` control flow output of our `Delay` node, and search for `Set Visibility`. You may need to disable `Context Sensitive`. 
 
 3. Connect the `M` output from our event to the `Target` output of our new `Set Visibility` node. Make sure the `New Visibility` argument is unchecked (false).
+
 ![image](https://github.com/user-attachments/assets/25a0e111-6747-469b-909d-99701c73a6d3)
 
 4. If you save/compile and test your blueprint now, you should see the cube vanish after three seconds while the fire remains.
