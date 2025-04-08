@@ -92,7 +92,9 @@ Select the cube you made in Unreal Editor's main window. You can either do this 
 2. In Details, select `+ Add Component`
 3. Choose the `Actor Component`, and name the new component "ActorCollideComponent"
 4. Right-click the new component and select `C++ > Open ActorCollideComponent.h` 
-5. Visual Studio 2022 (version is important!) should open up. If you haven't opened VS for the project before, We need to paste a signature for our hit test into the header file. Add the following under the first `public` section of the class definition... we just want the `UFUNCTION()` line and the `OnActorHit` function signature directly beneath it:
+
+Visual Studio 2022 (version is important!) should open up. If you haven't opened VS for the project before, it may give you a "missing modules" error. Just hit `Reload all`; this is Visual Studio detecting that Unreal modified your C++ code and needing to load in the changes.
+5. We need to paste a signature for our hit test into the header file. Add the following under the first `public` section of the class definition... we just want the `UFUNCTION()` line and the `OnActorHit` function signature directly beneath it:
 ```c++
 public: 
 	// Sets default values for this component's properties
@@ -141,12 +143,33 @@ void UActorCollideComponent::OnActorHit(UPrimitiveComponent* HitComponent, AActo
 
 7. Back in UE5, make sure both the rolling sphere and your cube are generating hit messages. You can find this in `Details > Collisions > Simulation Generates Hit Events`.
 
-8. If you're using VS Code for your code editing, in UE5 select `Tools > Refresh Visual Studio Code Project` to setup the build information. Then in VS Code, select `Terminal > Run Build Task` and the choose the `DebugGame Build` option from the resulting dropdown menu. This will compile your files and hot load them into the Unreal Editor.
-9. Alternatively, there should be a button in the lower right corner of your Unreal interface (next to the save info and the version control info)
-    that looks like a grid of squares... you can just hit this to compile your code and view errors in the Output Log if needed.
+8. Now, we need to build our code, to get it all packed up and ready to run in Unreal Editor. In Visual Studio, set the `Solution Configurations` drop-down to `Development` and the `Startup Item` as `UnrealBuildTool`.
 
-11. Hit Play
-12. Celebrate???
+9. Unreal is kind of finicky about this next step. The best way I've found to save and load code changes into Unreal is to:
+
+	1. In VS, use `Build > Build [ProjectName]`. Wait for this process to let you know it's complete in the `Output` window. If you get errors, let us know in `#get-tech-help`.
+ 	2. In Unreal Editor, hit the hot compile button in the bottom right corner of the screen:
+  	![image](https://github.com/user-attachments/assets/2915885f-b72a-4682-81fa-baf89c87bce2)
+   	3. Verify that your C++ classes have loaded into Unreal in the `Content Drawer`:
+    	![image](https://github.com/user-attachments/assets/5d1f7f49-da68-42c3-887e-4d9f6d1f41a6)
+
+Jiangwen's workflow is likely safer, but more time-consuming. He does:
+
+1. Close Unreal Editor.
+2. In VS, use `Build > Build [ProjectName]`. Wait for this process to let you know it's complete in the `Output` window. If you get errors, let us know in `#get-tech-help`.
+3. Hit CTRL F5 to re-open Unreal Editor.
+4. Verify that your C++ classes have loaded into Unreal in the `Content Drawer`:
+![image](https://github.com/user-attachments/assets/5d1f7f49-da68-42c3-887e-4d9f6d1f41a6)
+
+**NOTE:** Hot compile _only_ temporarily loads your code changes into Unreal. It won't save changes in Visual Studio. I would recommend you do a complete build of your code in VS at least once per session to ensure your code is saved.
+
+I'll also leave what was originally written here by Professor Roberts, in case this helps you:
+>>> If you're using VS Code for your code editing, in UE5 select `Tools > Refresh Visual Studio Code Project` to setup the build information. Then in VS, select `Terminal > Run Build Task` and the choose the `DebugGame Build` option from the resulting dropdown menu. This will compile your files and hot load them into the Unreal Editor. 
+
+>>> Alternatively, there should be a button in the lower right corner of your Unreal interface (next to the save info and the version control info)
+    that looks like a grid of squares... you can just hit this to hot compile your code and view errors in the Output Log if needed. 
+10. Hit Play
+11. Celebrate???
 
 Blueprints version:
 1. Select the cube in the editor
