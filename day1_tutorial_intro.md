@@ -86,11 +86,13 @@ Let’s add an obstacle. Drag out a `Basic > Cube` mesh from our placement menu.
 Let’s quickly add a hit test for when our cube is struck that will log a message to our output window.
 
 C++ version:
-1. Select the cube in the editor
+1. We're going to make a new `Component`, which is a reusable, module piece of functionality that can be attached to an `Actor`. For example, if you wanted to give objects in your game health that can be reduced by attacking them, you might want to make a `HealthComponent`, a subclass of `ActorComponent`, that you can attach to any `Actor` that you want to have health; enemies, walls, etc.
+
+Select the cube you made in Unreal Editor's main window. You can either do this by clicking on it in the `Outliner` pane or by clicking on the cube itself in the scene preview.
 2. In Details, select `+ Add Component`
 3. Choose the `Actor Component`, and name the new component "ActorCollideComponent"
-4. Right-click the new component and select `C++ > Open ActorCollideComponent.h`
-5. We need to paste a signature for our hit test into the header file. Add the following under the first `public` section of the class definition... we just want the `UFUNCTION()` line and the `OnActorHit` function signature directly beneath it:
+4. Right-click the new component and select `C++ > Open ActorCollideComponent.h` 
+5. Visual Studio 2022 (version is important!) should open up. If you haven't opened VS for the project before, We need to paste a signature for our hit test into the header file. Add the following under the first `public` section of the class definition... we just want the `UFUNCTION()` line and the `OnActorHit` function signature directly beneath it:
 ```c++
 public: 
 	// Sets default values for this component's properties
