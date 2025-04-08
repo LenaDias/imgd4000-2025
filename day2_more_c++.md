@@ -600,7 +600,8 @@ ASpherePawn::ASpherePawn(){
 }
 ```
 This assigns an offset (which can be change in the UE5 editor under the Camera details of `SphereController`) and tells the camera to follow our mesh.
-4. Go ahead and hit Compile (bottom right of Unreal Editor) and then Play in UE5:
+4. Now, we need to make sure that the default Mesh is actually getting fed to the SpherePawn on creation. You can modify your constructor function in SpherePawn by following the answer [here](https://stackoverflow.com/questions/61965061/how-to-add-the-value-of-a-static-mesh-component-from-c-instead-of-the-unreal-e). You can also make a Blueprint subclass of your C++ and change the class defaults there.
+5. Go ahead and hit Compile (bottom right of Unreal Editor) and then Play in UE5:
 ![{7A39FD7F-E5E8-4F96-98C6-01BD300F7BE5}](https://github.com/user-attachments/assets/a07b2973-f232-4076-b260-f34daedc16ea)
 
 You can also hit `Build > Compile` in Visual Studio after closing Unreal.
