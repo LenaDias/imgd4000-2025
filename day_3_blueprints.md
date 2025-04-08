@@ -52,7 +52,12 @@ void AProjectileActor::Tick(float DeltaTime){
 ```
 Hopefully this is fairly straightforward (hah, pun). <--------------roberts wrote this   We get the forward vector (the direction our `Projectile` is facing… this will be set when the `Projectile` is spawned) and then move it in that direction, scaled by our `Speed` property.
 
-4. All done! Make sure it compiles correctly (`Build > Compile` at the top of VS), and then move on to firing it from our `SpherePawn` player.
+4. Make sure this drop-down is set to `UnrealBuildTool`.
+
+![image](https://github.com/user-attachments/assets/8b80808a-446c-49fa-a86b-77c1e71f0ec9)
+
+5. Perform a `Build > Clean` to remove any old built files left in your C++ project.
+6. All done! Make sure it Builds correctly (`Build > Build [projectName]` at the top of VS), and then move on to firing it from our `SpherePawn` player.
 
 
 ### Mapping the `Fire` input
@@ -125,15 +130,11 @@ void ASpherePawn::Fire() {
 	a->Speed = ProjectileSpeed;
 }
 ```
-6. Make sure this drop-down is set to `UnrealBuildTool`.
-
-![image](https://github.com/user-attachments/assets/8b80808a-446c-49fa-a86b-77c1e71f0ec9)
-
-7. Perform a `Build > Clean`, then a `Build > Build`.
-8. Remember your `BP_SphereController` subclass you made last class? Let's open it up again. Notice how it automatically updated to reflect the changes you made, like the new `UPROPERTY` to `SphereController.cpp` and `SphereController.h`, since it is a subclass of those.
-9. Set the `Fire Action` to your new `IA_Fire` `Input Action`.
-10. Save and compile.
-11. Back in Unreal Editor's main window., hit `Play`. You should be able to fire via the `Space Bar` now.  You can also adjust the speed of the `Projectile` using the `SpherePawn` `Details` view. Yay!
+6. Perform a `Build > Clean`, then a `Build > Build`.
+7. Remember your `BP_SphereController` subclass you made last class? Let's open it up again. Notice how it automatically updated to reflect the changes you made, like the new `UPROPERTY` to `SphereController.cpp` and `SphereController.h`, since it is a subclass of those.
+8. Set the `Fire Action` to your new `IA_Fire` `Input Action`.
+9. Save and compile.
+10. Back in Unreal Editor's main window., hit `Play`. You should be able to fire via the `Space Bar` now.  You can also adjust the speed of the `Projectile` using the `SpherePawn` `Details` view. Yay!
 
 ## New types of projectiles
 
@@ -148,7 +149,7 @@ Unreal enables us to do a "hitscan" shot like this with `traces`. A trace in Unr
 ### Firing a hitscan: Unreal Editor
 So, let's wire up the ability for the player to fire a laser. It will use "hitscan" hit detection and print a message on hit.
 
-1. Just as you did before for `Fire`, go through your `IMC` and add a new `Input Action` to our `InputMappingContext`. Name it `IA_FireLaser` on the... `L` key. For Laser.
+1. Now is a great time to test your knowledge of how to take wire an input through to code. Just as you did before for `Fire`, go through your `IMC` and add a new `Input Action` to our `InputMappingContext`. Name it `IA_FireLaser` on the... `L` key. For Laser.
 
 But hold up- this is a "Fire" action, right? Why aren't we mapping this under the same `IA_Fire` action as before? 
 
@@ -163,9 +164,9 @@ You may want to read [this](https://gamedev.stackexchange.com/questions/189461/h
 
 TLDR: An `Input Action` is just a hook to tell a function to run whenever any arbitrary set of inputs is detected! It is _not_ an input map itself- that's the `Input Mapping Context`. It is _not_ the logic following those inputs- that's your `PlayerController`'s job.
 
-3. Also wire up the inputs in your `SphereController` and `SpherePawn`. `FireLaser` should be a new method.
+3. Also wire up the inputs in your `SphereController` and `SpherePawn`. `FireLaser` should be a new method. 
 4. Build (Pause `Live Coding`/close Unreal Editor if you get a MSB3073 code 6) and then return to Unreal Editor
-5. Remember to go into your `BP_SphereController` and set the `Fire Laser Action` to `IA_FireLaserAction`.
+5. Remember to go into your `BP_SphereController` and set the `Fire Laser Action` to `IA_FireLaserAction`. 
 
 
 ### Firing a hitscan: Code
@@ -371,7 +372,7 @@ Drag a pin from the `Completed` control flow output of our `Delay` node, and sea
 
 ![image](https://github.com/user-attachments/assets/25a0e111-6747-469b-909d-99701c73a6d3)
 
-4. If you save/compile and test your blueprint now, you should see the cube vanish after three seconds while the fire remains.
+4. If you save > compile and test your blueprint now, you should see the cube vanish after three seconds while the fire remains.
 
 5. Next we'll drag a pin from the control flow output of `Set Visibility` and create a second `Delay` node; set the duration for `2.0` seconds.
 6. Drag a pin from the `Completed` control flow output and choose the `Destroy Actor` node.
