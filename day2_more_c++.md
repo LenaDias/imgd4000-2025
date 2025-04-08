@@ -554,8 +554,9 @@ Now; surprise, we're actually gonna use Blueprints. We need them to set the defa
 
 
 ### Configuring the GameMode 
+The `GameMode` determines what scenario the game is being run in, including its rules; it also spawns the player character.
 
-1. Make a new `GameModeBase` as below and name it `SphereGameMode`. The `GameMode` determines what scenario the game is being run in, including its rules; it also spawns the player character.
+1. Make a new `GameModeBase` as below and name it `SphereGameMode`. The `GameMode` class has multiplayer support that we don't need, so we're just using `GameModeBase`
 ![{4034D6ED-6EA6-45D9-80B0-F2E6B878D16E}](https://github.com/user-attachments/assets/d4ac1a93-9093-4043-b58b-d323fd92aa98)
 
 2. Edit your new `GameMode` so that the `Player Controller Class` is `BP_SphereController` (not `SphereController`, since we want the subclass with the defaults we set).
