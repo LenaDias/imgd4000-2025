@@ -1,5 +1,5 @@
 # IMGD 4000 - Development Portfolio
-You may optionally submit a development portfolio for 15% of your final grade. 
+You may optionally submit a development portfolio as part of the Additional Tech Assignments.
 This portfolio should outline, in detail, your development work on your group project. Please describe:
 
 1. Your role in the project  
