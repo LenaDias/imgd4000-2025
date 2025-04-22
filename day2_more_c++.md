@@ -226,10 +226,15 @@ ASpherePawn::ASpherePawn()
 // Sets default values
 ASpherePawn::ASpherePawn()
 {
- 	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	PawnMovement = CreateDefaultSubobject<UFloatingPawnMovement>("PawnMovement");
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>("Mesh");
+
+	static ConstructorHelpers::FObjectFinder<UStaticMesh>SphereMeshAsset(TEXT("StaticMesh'/Engine/BasicShapes/Sphere.Sphere'"));
+	Mesh->SetStaticMesh(SphereMeshAsset.Object);
+	
+	RootComponent = SphereMesh;
 
 }
 
