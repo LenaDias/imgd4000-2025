@@ -1,7 +1,9 @@
-## Tutorial 5: soundscape
-Goal: Learn how to use the Soundscape plugin to create spatialized sound and manage sound settings across multiple `Actor`s.
+## Tutorial 5: Soundscapes
+Goal: Learn how to use the `Soundscape` plugin to create spatialized sound and manage sound settings across multiple `Actor`s.
 
-[Another good tutorial in Unreal]([https://docs.unrealengine.com/5.1/en-US/soundscape-in-unreal-engine/](https://docs.google.com/forms/d/1V4i_d5ktBFxxr8eaezJqX3fT6pC9wBKrD3VtIgqh2Cg/edit?usp=drive_web )
+Here's [another good tutorial in Unreal](https://docs.unrealengine.com/5.1/en-US/soundscape-in-unreal-engine/) if you'd prefer it.
+
+## Soundscape setup and payoff
 
 1. Create a new first or third person project
 2. Turn the Soundscape plugin on (in `Edit > Plugins`). You’ll have to restart the editor.
