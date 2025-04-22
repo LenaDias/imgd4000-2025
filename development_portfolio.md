@@ -15,5 +15,7 @@ to showcase your work to potential employers. With that in mind, please keep the
 the opportunity to highlight unique skills you might have picked up while developing the project
 and your ability to solve complex problems.
 
+I would also highly recommend that you ask for feedback on your submission for this as you prepare it! It may get you some helpful, targeted advice!
+
 My preferred submission format for the document is Markdown via GitHub Pages, but you may also post it via HTML 
 on your personal website. Please submit this to me by the end of course via a DM in Discord.
