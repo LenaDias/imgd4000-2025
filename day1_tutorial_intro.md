@@ -4,7 +4,7 @@ Along the way we’ll look at some coding in Blueprints, some C++ coding, and th
 
 ### Getting started
 This tutorial assumes that you have both [Unreal Engine 5.2](https://www.unrealengine.com/download) and Visual Studio or VS Code installed. 
-CLion is another option and [there are free educational licenses available](https://www.jetbrains.com/community/education/#students) as is Xcode if you're on a Mac.
+Rider is another option and [there are free educational licenses available](https://www.jetbrains.com/community/education/#students) as is Xcode if you're on a Mac.
 If you **don’t** have both Unreal and an appropriate editor installed, no worries... just follow along with the screencast and then try things out
 later (you can actually get through most of today with just the Unreal Editor). 
 Or if you just learn better by watching, feel free to just watch, listen, and ask questions.
