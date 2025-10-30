@@ -210,7 +210,7 @@ ASpherePawn::ASpherePawn()
 	static ConstructorHelpers::FObjectFinder<UStaticMesh>SphereMeshAsset(TEXT("StaticMesh'/Engine/BasicShapes/Sphere.Sphere'"));
 	Mesh->SetStaticMesh(SphereMeshAsset.Object);
 	
-	RootComponent = SphereMesh;
+	RootComponent = Mesh;
 
 }
 ```	
@@ -234,7 +234,7 @@ ASpherePawn::ASpherePawn()
 	static ConstructorHelpers::FObjectFinder<UStaticMesh>SphereMeshAsset(TEXT("StaticMesh'/Engine/BasicShapes/Sphere.Sphere'"));
 	Mesh->SetStaticMesh(SphereMeshAsset.Object);
 	
-	RootComponent = SphereMesh;
+	RootComponent = Mesh;
 
 }
 
