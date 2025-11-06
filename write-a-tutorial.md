@@ -1,9 +1,9 @@
 ## IMGD4000: "Write a tutorial" assignment
 
 Part of the point of getting you all to work together in the same place is to practice communal learning- to build a body of knowledge together, such that everyone can uplift each other. 
-Building our body of tutorials helps you and other IMGD students!
+Building our body of tutorials helps you and other IMGD students! 
 
-Is there something you wish you'd learned sooner? An explanation of a subsystem that would've proved useful? Write a detailed tutorial explaining a reasonably complex (see below examples) topic in UE5. 
+Is there something you wish you'd learned sooner? An explanation of a subsystem that would've proved useful? Write a detailed tutorial explaining a reasonably complex (see below examples) topic in UE5. Writing tutorials like these can be a great way to save yourself future time and effort by putting your knowledge somewhere accessible. It also helps you practice explaining your code to another person, which helps you debug!
 
 Here are two good examples of tutorials:
 - [Tutorial 3](https://github.com/LenaDias/imgd4000-2025/blob/master/day_3_blueprints.md)
