@@ -71,7 +71,7 @@ Now, we need to add the `FireAction` input. Remember how last time we set up `En
 
 5. Now, back to C++. Open your `SphereController.h` header file.
 6. Add a protected, `UPROPERTY`-decorated member that stores the `FireAction` (we'll feed this our `IA_Fire` `Move Action` later.)
-7. Also add another private method:
+7. Also add another public method:
 ```c++
 	void Fire(const FInputActionValue& InputActionValue);
 ```
