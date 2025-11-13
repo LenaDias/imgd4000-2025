@@ -18,6 +18,9 @@ There is also an effort to handle potential errors the user might encounter. Try
 
 ## Grading
 25% : Sufficiently complex topic 
+
 25% : Thorough explanation of steps taken in tutorial. Address the "why" of each step as well as the "how"
+
 25% : Tutorial is well-organized and easily understood. 
+
 25% : Tutorial supports itself with images, links, etc. that would be useful
