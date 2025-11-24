@@ -2,8 +2,7 @@
 
 1. Implement the [A* algorithm](https://www.redblobgames.com/pathfinding/a-star/introduction.html), 
 the most commonly found pathfinding algorithm in gaming and the basis. The tutorial above will walk
-you through the algorithm in detail, but feel free to ask questions in the Discord server. We will
-cover some setup code for this assignment in class; you might want to wait until then to begin this.
+you through the algorithm in detail, but feel free to ask questions in the Discord server. 
 
 ## Requirements
 1. Implement A* in C++, by subclassing the AIController class. 
